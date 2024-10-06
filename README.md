@@ -32,7 +32,7 @@ fastq_filtrator.py                 # Главный модуль для запу
   - `reverse(seq: str) -> str`: Возвращает обратную последовательность.
   - `reverse_complement(seq: str) -> str`: Возвращает обратную комплементарную последовательность.
 
-### 3. `fastq_filtrator.py`
+### 3. `transbio_tool.py`
 
 Этот модуль объединяет функции из предыдущих модулей и предоставляет интерфейс для обработки последовательностей ДНК и РНК. 
 
@@ -62,9 +62,6 @@ filtered_sequences = filter_fastq(seqs, gc_bounds=(30, 60), length_bounds=(0, 10
 print(filtered_sequences)
 
 Работа с ДНК и РНК
-
-python
-Copy code
 
 from transbio_tools.modules.module_for_dna_rna_tools import transcribe, complement
 
