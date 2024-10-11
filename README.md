@@ -1,12 +1,14 @@
 # Transbio Tools
 
-Transbio Tools — это набор модулей для работы с биологическими последовательностями, включая функции для обработки ДНК и РНК, а также фильтрацию данных в формате FASTQ.
+Transbio Tools — это набор модулей для работы с биологическими последовательностями ДНК и РНК и реализации процессов центральной догмы молекулярной биологии, а также для фильтрации данных в формате FASTQ.
 
 ## Структура проекта
 
-module_for_filter_fastq.py         # Модуль для фильтрации данных FASTQ
-module_for_dna_rna_tools.py        # Модуль для работы с ДНК и РНК
-fastq_filtrator.py                 # Главный модуль для запуска инструментов обработки ДНК и РНК
+- module_for_filter_fastq.py         # Модуль для фильтрации данных FASTQ
+
+- module_for_dna_rna_tools.py        # Модуль для работы с ДНК и РНК
+
+- fastq_filtrator.py                 # Главный модуль для запуска инструментов обработки ДНК и РНК
 
 
 
@@ -32,7 +34,7 @@ fastq_filtrator.py                 # Главный модуль для запу
   - `reverse(seq: str) -> str`: Возвращает обратную последовательность.
   - `reverse_complement(seq: str) -> str`: Возвращает обратную комплементарную последовательность.
 
-### 3. `fastq_filtrator.py`
+### 3. `transbio_tool.py`
 
 Этот модуль объединяет функции из предыдущих модулей и предоставляет интерфейс для обработки последовательностей ДНК и РНК. 
 
@@ -62,9 +64,6 @@ filtered_sequences = filter_fastq(seqs, gc_bounds=(30, 60), length_bounds=(0, 10
 print(filtered_sequences)
 
 Работа с ДНК и РНК
-
-python
-Copy code
 
 from transbio_tools.modules.module_for_dna_rna_tools import transcribe, complement
 
