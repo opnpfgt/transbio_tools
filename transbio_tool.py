@@ -6,45 +6,33 @@ from modules.module_for_filter_fastq import avg_quality, gc_bound
 
 
 def run_dna_rna_tools(*args: Union[Union[list, str], str]) -> Union[list, str]:
-    '''Запускает указанные процедуры (транскрипция, комплементация и т.д.)\
-для переданных последовательностей'''
-    # Проверяем, что последним аргументом является имя процедуры
+    '''Run listed procedures (trnscribe, complement, etc.)\
+for given sequences'''
+    # Check for presence of all args
     if not args:
         raise ValueError("You forgot to add func or seq")
 
     procedure = args[-1]
     sequences = args[:-1]
-
-    # Проверяем, что все последовательности являются корректными
+    procedures = {'transcribe': transcribe,
+                  'reverse': reverse,
+                  'complement': complement,
+                  'reverse_complement': reverse_complement,
+                  'reverse_transcribe': reverse_transcribe}
+    # Check our sequences
     for seq in sequences:
         if get_na_type(seq) != 'dna' and get_na_type(seq) != 'rna':
-            raise ValueError(f'''Проблемы \
-                            c последовательностью: {get_na_type(seq)}''')
+            raise ValueError(f'''Problems \
+                            with your sequence: {get_na_type(seq)}''')
 
-    # Выполняем нужную процедуру
-    if procedure == 'transcribe':
-        results = [transcribe(seq) for seq in sequences]
-    elif procedure == 'reverse':
-        results = [reverse(seq) for seq in sequences]
-    elif procedure == 'complement':
-        results = [complement(seq) for seq in sequences]
-    elif procedure == 'reverse_complement':
-        results = [reverse_complement(seq) for seq in sequences]
-    elif procedure == 'reverse_transcribe':
-        results = [reverse_transcribe(seq) for seq in sequences]
+    # Perform the procedure
+    if procedure in procedures:
+        results = [procedures[procedure](seq) for seq in sequences]
     else:
         raise ValueError(f"Can\'t perform: {procedure}")
 
-    # Возвращаем результат в зависимости от количества последовательностей
+    # Return result depending on the number of sequences
     return results[0] if len(results) == 1 else results
-
-
-# def check_type(gc_bounds, length_bounds):
-#     if isinstance(gc_bounds, (int, float)):
-#         gc_bounds = (0, gc_bounds)
-#     if not isinstance(length_bounds, tuple):
-#         length_bounds = (0, length_bounds)
-#     return gc_bounds, length_bounds
 
 
 def filter_fastq(seqs: Dict[str, Tuple[str, str]],
