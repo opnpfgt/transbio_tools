@@ -64,12 +64,11 @@ seqs = {
 }
 
 filtered_sequences = filter_fastq(seqs, gc_bounds=(30, 60), length_bounds=(0, 100), quality_threshold=20)
-print(filtered_sequences)
+print(filtered_sequences)'''
 
 Working with DNA and RNA
 
-python
-Copy code
+'''python
 
 from transbio_tools.modules.module_for_dna_rna_tools import transcribe, complement
 
@@ -78,7 +77,7 @@ rna_seq = transcribe(dna_seq)
 complement_seq = complement(dna_seq)
 
 print(f"Transcribed sequence: {rna_seq}")
-print(f"Complementary sequence: {complement_seq}")
+print(f"Complementary sequence: {complement_seq}")'''
 
 
 # bio_files_processor
@@ -107,9 +106,9 @@ Converts a multi-line FASTA file to a single-line FASTA file.
 
 #### Example Usage:
 
-```python
+'''python
 convert_multiline_fasta_to_oneline('input.fasta', 'output.fasta')
-
+'''
 Note:
 
 If the output file already exists, the function raises a FileExistsError.
@@ -130,9 +129,10 @@ output_file (str): The path to the output file where the protein names will be s
 
 Example Usage:
 
-python
+'''python
 
 parse_blast_output('example_blast_results.txt', 'best_matches.txt')
+'''
 
 License
 
@@ -151,15 +151,3 @@ If you would like to contribute to this project, please fork the repository and 
 Contact
 
 For questions or feedback, please contact OSA.
-
-
-
-### Key Sections Explained:
-- **Title and Description**: The title of the package and a brief description of its purpose.
-- **Features**: A concise list of the functionalities provided by the package.
-- **Requirements**: Any prerequisites needed to run the code.
-- **Function Documentation**: Detailed explanations of each function, including parameters and example usage.
-- **License**: Information about the licensing of the project.
-- **Acknowledgements**: A section to credit any resources or libraries used.
-- **Contributing**: Guidelines for contributing to the project.
-- **Contact Information**: A way for users to reach you for questions or feedback.
