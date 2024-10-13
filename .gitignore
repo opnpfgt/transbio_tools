@@ -1,2 +1,6 @@
 *Zone.Identifier
 __pycache__
+*.fastq
+example*
+filtered
+test*
