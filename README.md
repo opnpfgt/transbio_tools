@@ -7,15 +7,13 @@
 ## Project Structure
 
 transbio_tools/
-│
-├── module_for_filter_fastq.py         # Module for filtering FASTQ data
-├── module_for_dna_rna_tools.py        # Module for working with DNA and RNA
-└── fastq_filtrator.py                 # Main module for running DNA and RNA processing tools
+
+module_for_filter_fastq.py  # Module for filtering FASTQ data
+module_for_dna_rna_tools.py # Module for working with DNA and RNA
+fastq_filtrator.py  # Main module for running DNA and RNA processing tools
 
 
 python
-Copy code
-
 
 ## Modules
 
@@ -83,7 +81,7 @@ print(f"Transcribed sequence: {rna_seq}")
 print(f"Complementary sequence: {complement_seq}")
 
 
-# Bioinformatics Utilities
+# bio_files_processor
 
 This package provides essential utilities for bioinformatics data processing, including converting multi-line FASTA files to single-line format and parsing BLAST output files to extract protein names. 
 
