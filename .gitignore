@@ -1,0 +1,9 @@
+*Zone.Identifier
+__pycache__
+*.fastq
+example*
+filtered
+test*
+output*
+.vscode
+best_matches.txt
