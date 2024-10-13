@@ -107,9 +107,10 @@ Converts a multi-line FASTA file to a single-line FASTA file.
 #### Example Usage:
 
 '''python
-convert_multiline_fasta_to_oneline('input.fasta', 'output.fasta')
-'''
-Note:
+convert_multiline_fasta_to_oneline('input.fasta', 'output.fasta')'''
+
+
+#### Note:
 
 If the output file already exists, the function raises a FileExistsError.
 
