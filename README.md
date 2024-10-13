@@ -1,94 +1,61 @@
 # Transbio Tools
 
-Transbio Tools is a set of modules for working with biological DNA and RNA sequences and implementing processes of the central dogma of molecular biology, handling the long_fasta format, processing BLAST results, and filtering data in FASTQ format.
+# Transbio Tools
 
+**Transbio Tools** is a set of modules for working with biological DNA and RNA sequences and implementing processes of the central dogma of molecular biology. It supports handling the long_fasta format, processing BLAST results, and filtering data in FASTQ format.
 
-Project Structure
+## Project Structure
 
+transbio_tools/
+│
+├── module_for_filter_fastq.py         # Module for filtering FASTQ data
+├── module_for_dna_rna_tools.py        # Module for working with DNA and RNA
+└── fastq_filtrator.py                 # Main module for running DNA and RNA processing tools
 
-
-module_for_filter_fastq.py         # Module for filtering FASTQ data
-
-
-
-
-module_for_dna_rna_tools.py        # Module for working with DNA and RNA
-
-
-
-
-fastq_filtrator.py                 # Main module for running DNA and RNA processing tools
-
-
-
-
-Modules
-
-1. module_for_filter_fastq.py
-
-This module contains functions for calculating GC content and average quality of sequences.
-
-
-
-Functions:
-
-gc_bound(seq: str) -> float: Calculates the percentage of G and C in a sequence.
-
-avg_quality(quality: str) -> float: Calculates the average quality of a sequence.
-
-
-
-
-2. module_for_dna_rna_tools.py
-
-This module provides functions for working with DNA and RNA, including obtaining complementary sequences, transcription, and reverse transcription.
-
-
-
-Functions:
-
-get_na_type(seq: str) -> str: Determines the type of nucleic acid (DNA or RNA) or reports an error.
-
-complement(seq: str) -> str: Returns the complementary sequence.
-
-transcribe(dna_seq: str) -> str: Transcribes DNA into RNA.
-
-reverse_transcribe(rna_seq: str) -> str: Reverse transcribes RNA into DNA.
-
-reverse(seq: str) -> str: Returns the reverse sequence.
-
-reverse_complement(seq: str) -> str: Returns the reverse complementary sequence.
-
-
-
-
-3. transbio_tool.py
-
-This module combines functions from the previous modules and provides an interface for processing DNA and RNA sequences.
-
-
-
-Function:
-
-run_dna_rna_tools(*args): Runs specified procedures (transcription, complementation, etc.) for the provided sequences.
-
-filter_fastq(input_fastq: str, output_fastq: str, gc_bounds: Union[int, float, tuple], length_bounds: Union[int, float, tuple], quality_threshold: Union[int, float]) -> str: Filters FASTQ data based on specified criteria (GC content, length, quality) and writes the resulting data to the output_fastq file.
-
-
-
-
-Installation
-
-To use the modules, simply copy the transbio_tools folder into your project. Make sure all dependencies are installed (if any).
-
-
-Examples of Usage
-
-Filtering FASTQ
 
 python
 Copy code
 
+
+## Modules
+
+### 1. `module_for_filter_fastq.py`
+
+This module contains functions for calculating GC content and average quality of sequences.
+
+- **Functions:**
+  - `gc_bound(seq: str) -> float`: Calculates the percentage of G and C in a sequence.
+  - `avg_quality(quality: str) -> float`: Calculates the average quality of a sequence.
+
+### 2. `module_for_dna_rna_tools.py`
+
+This module provides functions for working with DNA and RNA, including obtaining complementary sequences, transcription, and reverse transcription.
+
+- **Functions:**
+  - `get_na_type(seq: str) -> str`: Determines the type of nucleic acid (DNA or RNA) or reports an error.
+  - `complement(seq: str) -> str`: Returns the complementary sequence.
+  - `transcribe(dna_seq: str) -> str`: Transcribes DNA into RNA.
+  - `reverse_transcribe(rna_seq: str) -> str`: Reverse transcribes RNA into DNA.
+  - `reverse(seq: str) -> str`: Returns the reverse sequence.
+  - `reverse_complement(seq: str) -> str`: Returns the reverse complementary sequence.
+
+### 3. `transbio_tool.py`
+
+This module combines functions from the previous modules and provides an interface for processing DNA and RNA sequences.
+
+- **Functions:**
+  - `run_dna_rna_tools(*args)`: Runs specified procedures (transcription, complementation, etc.) for the provided sequences.
+  - `filter_fastq(input_fastq: str, output_fastq: str, gc_bounds: Union[int, float, tuple], length_bounds: Union[int, float, tuple], quality_threshold: Union[int, float]) -> str`: Filters FASTQ data based on specified criteria (GC content, length, quality) and writes the resulting data to the output FASTQ file.
+
+## Installation
+
+To use the modules, simply copy the `transbio_tools` folder into your project. Make sure all dependencies are installed (if any).
+
+## Examples of Usage
+
+### Filtering FASTQ
+
+```python
 from transbio_tools.fastq_filtrator import filter_fastq
 
 seqs = {
