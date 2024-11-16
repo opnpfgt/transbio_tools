@@ -1,54 +1,57 @@
 # Transbio Tools
 
-Transbio Tools — это набор модулей для работы с биологическими последовательностями ДНК и РНК и реализации процессов центральной догмы молекулярной биологии, а также для фильтрации данных в формате FASTQ.
+# Transbio Tools
 
-## Структура проекта
+**Transbio Tools** is a set of modules for working with biological DNA and RNA sequences and implementing processes of the central dogma of molecular biology. It supports handling the long_fasta format, processing BLAST results, and filtering data in FASTQ format.
 
-- module_for_filter_fastq.py         # Модуль для фильтрации данных FASTQ
+## Project Structure
 
-- module_for_dna_rna_tools.py        # Модуль для работы с ДНК и РНК
+transbio_tools/
 
-- fastq_filtrator.py                 # Главный модуль для запуска инструментов обработки ДНК и РНК
+module_for_filter_fastq.py  # Module for filtering FASTQ data
+module_for_dna_rna_tools.py # Module for working with DNA and RNA
+fastq_filtrator.py  # Main module for running DNA and RNA processing tools
 
 
+python
 
-## Модули
+## Modules
 
 ### 1. `module_for_filter_fastq.py`
 
-Этот модуль содержит функции для вычисления GC-содержания и среднего качества последовательностей.
+This module contains functions for calculating GC content and average quality of sequences.
 
-- **Функции:**
-  - `gc_bound(seq: str) -> float`: Вычисляет процентное содержание G и C в последовательности.
-  - `avg_quality(quality: str) -> float`: Вычисляет среднее качество последовательности.
+- **Functions:**
+  - `gc_bound(seq: str) -> float`: Calculates the percentage of G and C in a sequence.
+  - `avg_quality(quality: str) -> float`: Calculates the average quality of a sequence.
 
 ### 2. `module_for_dna_rna_tools.py`
 
-Этот модуль предоставляет функции для работы с ДНК и РНК, включая получение комплементарной последовательности, транскрипцию и обратную транскрипцию.
+This module provides functions for working with DNA and RNA, including obtaining complementary sequences, transcription, and reverse transcription.
 
-- **Функции:**
-  - `get_na_type(seq: str) -> str`: Определяет тип нуклеиновой кислоты (ДНК или РНК) или сообщает об ошибке.
-  - `complement(seq: str) -> str`: Возвращает комплементарную последовательность.
-  - `transcribe(dna_seq: str) -> str`: Транскрибирует ДНК в РНК.
-  - `reverse_transcribe(rna_seq: str) -> str`: Обратная транскрипция РНК в ДНК.
-  - `reverse(seq: str) -> str`: Возвращает обратную последовательность.
-  - `reverse_complement(seq: str) -> str`: Возвращает обратную комплементарную последовательность.
+- **Functions:**
+  - `get_na_type(seq: str) -> str`: Determines the type of nucleic acid (DNA or RNA) or reports an error.
+  - `complement(seq: str) -> str`: Returns the complementary sequence.
+  - `transcribe(dna_seq: str) -> str`: Transcribes DNA into RNA.
+  - `reverse_transcribe(rna_seq: str) -> str`: Reverse transcribes RNA into DNA.
+  - `reverse(seq: str) -> str`: Returns the reverse sequence.
+  - `reverse_complement(seq: str) -> str`: Returns the reverse complementary sequence.
 
 ### 3. `transbio_tool.py`
 
-Этот модуль объединяет функции из предыдущих модулей и предоставляет интерфейс для обработки последовательностей ДНК и РНК. 
+This module combines functions from the previous modules and provides an interface for processing DNA and RNA sequences.
 
-- **Функция:**
-  - `run_dna_rna_tools(*args)`: Запускает указанные процедуры (транскрипция, комплементация и т.д.) для переданных последовательностей.
-  - `filter_fastq(seqs: Dict[str, Tuple[str, str]], gc_bounds: Union[int, float, tuple], length_bounds: Union[int, float, tuple], quality_threshold: Union[int, float]) -> Dict[str, Tuple[str, str]]`: Фильтрует данные в формате FASTQ по заданным критериям (GC-содержание, длина, качество).
+- **Functions:**
+  - `run_dna_rna_tools(*args)`: Runs specified procedures (transcription, complementation, etc.) for the provided sequences.
+  - `filter_fastq(input_fastq: str, output_fastq: str, gc_bounds: Union[int, float, tuple], length_bounds: Union[int, float, tuple], quality_threshold: Union[int, float]) -> str`: Filters FASTQ data based on specified criteria (GC content, length, quality) and writes the resulting data to the output FASTQ file.
 
-## Установка
+## Installation
 
-Для использования модулей просто скопируйте папку `transbio_tools` в ваш проект. Убедитесь, что все зависимости установлены (если есть).
+To use the modules, simply copy the `transbio_tools` folder into your project. Make sure all dependencies are installed (if any).
 
-## Примеры использования
+## Examples of Usage
 
-### Фильтрация FASTQ
+### Filtering FASTQ
 
 ```python
 from transbio_tools.fastq_filtrator import filter_fastq
@@ -61,9 +64,11 @@ seqs = {
 }
 
 filtered_sequences = filter_fastq(seqs, gc_bounds=(30, 60), length_bounds=(0, 100), quality_threshold=20)
-print(filtered_sequences)
+print(filtered_sequences)'''
 
-Работа с ДНК и РНК
+Working with DNA and RNA
+
+'''python
 
 from transbio_tools.modules.module_for_dna_rna_tools import transcribe, complement
 
@@ -71,5 +76,79 @@ dna_seq = "ATGC"
 rna_seq = transcribe(dna_seq)
 complement_seq = complement(dna_seq)
 
-print(f"Транскрибированная последовательность: {rna_seq}")
-print(f"Комплементарная последовательность: {complement_seq}")
+print(f"Transcribed sequence: {rna_seq}")
+print(f"Complementary sequence: {complement_seq}")'''
+
+
+# bio_files_processor
+
+This package provides essential utilities for bioinformatics data processing, including converting multi-line FASTA files to single-line format and parsing BLAST output files to extract protein names. 
+
+## Features
+
+- **Convert Multi-line FASTA to Single Line**: Easily convert FASTA files formatted with multiple lines into a more compact single-line format.
+- **Parse BLAST Output**: Extract the best matching protein names from BLAST results and save them to a text file.
+
+## Requirements
+
+- Python 3.x
+
+## Functions
+
+### `convert_multiline_fasta_to_oneline(input_fasta: str, output_fasta: str = "output_short")`
+
+Converts a multi-line FASTA file to a single-line FASTA file.
+
+#### Parameters:
+
+- `input_fasta` (str): The path to the input multi-line FASTA file.
+- `output_fasta` (str, optional): The path to the output single-line FASTA file. Default is `"output_short"`.
+
+#### Example Usage:
+
+'''python
+convert_multiline_fasta_to_oneline('input.fasta', 'output.fasta')'''
+
+
+#### Note:
+
+If the output file already exists, the function raises a FileExistsError.
+
+
+parse_blast_output(input_file: str, output_file: str)
+
+Extracts the first protein name from the Description column in a BLAST results file and saves them to a new file.
+
+
+Parameters:
+
+
+input_file (str): The path to the input BLAST results file in TXT format.
+
+output_file (str): The path to the output file where the protein names will be saved.
+
+
+Example Usage:
+
+'''python
+
+parse_blast_output('example_blast_results.txt', 'best_matches.txt')
+'''
+
+License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+Acknowledgements
+
+
+Any libraries or resources that were helpful.
+
+
+Contributing
+
+If you would like to contribute to this project, please fork the repository and submit a pull request.
+
+
+Contact
+
+For questions or feedback, please contact OSA.

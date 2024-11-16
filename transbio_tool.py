@@ -1,8 +1,16 @@
-from typing import Dict, Tuple, Union
+from typing import Union
 from modules.module_for_dna_rna_tools import get_na_type, complement
 from modules.module_for_dna_rna_tools import reverse, reverse_complement
 from modules.module_for_dna_rna_tools import reverse_transcribe, transcribe
 from modules.module_for_filter_fastq import avg_quality, gc_bound
+import os
+
+# path_to_file = os.path
+# path_file = os.path.join()
+
+# with open() as file:
+#     input_fastq = file.read()
+# output_fastq =
 
 
 def run_dna_rna_tools(*args: Union[Union[list, str], str]) -> Union[list, str]:
@@ -35,30 +43,61 @@ for given sequences'''
     return results[0] if len(results) == 1 else results
 
 
-def filter_fastq(seqs: Dict[str, Tuple[str, str]],
+# def get_line(file):
+#     header = file.readline().strip()
+#     if header.startswith('@S'):
+#         seq = file.readline().strip()
+#         file.readline()  # Skip the string with "+"
+#         quality = file.readline().strip()
+#         return header, seq, quality
+
+# def write_fastq(header: str, seq: str, quality: str, output_fastq: str):
+#     with open(os.path.join(output_fastq), 'a') as file:
+#         file.write((f'{header}\n{seq}\n+\n{quality}\n'))
+
+
+def filter_fastq(input_fastq: str, output_fastq: str,
                  gc_bounds: Union[int, float, tuple] = (0, 100),
                  length_bounds: Union[int, float, tuple] = (0, 2**32),
-                 quality_threshold:
-                     Union[int, float] = 0) -> Dict[str, Tuple[str, str]]:
+                 quality_threshold: Union[int, float] = 0):
+    '''
+    Filters sequences from a FASTQ file based on GC content,
+    sequence length, and average quality score.
+    '''
 
-    if isinstance(gc_bounds, (int, float)):
-        gc_bounds = (0, gc_bounds)
-    if not isinstance(length_bounds, tuple):
-        length_bounds = (0, length_bounds)
-    if not seqs:
-        raise ValueError('Ooops, you forgot to feed meeee')
+    filtered_dir = 'filtered'
+    if not os.path.exists(filtered_dir):
+        os.makedirs(filtered_dir)
 
-    # check = check_type(gc_bounds, length_bounds)
+    output_path = os.path.join(filtered_dir, output_fastq)
 
-    filtered_seqs = {}
+    if os.path.exists(output_path):
+        raise FileExistsError(f"File {output_fastq} already exists.\
+ Please choose another name.")
+    elif os.path.exists(output_fastq):
+        raise FileExistsError(f"File {output_fastq} already exists.\
+ Please choose another name.")
 
-    for name, (seq, quality) in seqs.items():
-        gc = gc_bound(seq)
-        length = len(seq)
-        ave_q = avg_quality(quality)
-        if ((gc_bounds[0] <= gc <= gc_bounds[1]) and
-           (length_bounds[0] <= length <= length_bounds[1]) and
-           (ave_q >= quality_threshold)):
-            filtered_seqs[name] = (seq, quality)
+    # Construct the full output file path
+    output_path = os.path.join(filtered_dir, output_fastq)
+    with open(input_fastq, 'r') as infile, open(output_path, 'a') as outfile:
+        for header in infile:  # Iterate over lines in the input file
+            header = header.strip()
+            if not header:
+                break  # End of file reached
+            seq = infile.readline().strip()
+            infile.readline()  # Skip the line with "+"
+            quality = infile.readline().strip()
 
-    return filtered_seqs
+            # Calculate values
+            gc = gc_bound(seq)
+            length = len(seq)
+            ave_q = avg_quality(quality)
+
+            # Filtering and writing results
+            if ((gc_bounds[0] <= gc <= gc_bounds[1]) and
+               (length_bounds[0] <= length <= length_bounds[1]) and
+               (ave_q >= quality_threshold)):
+                outfile.write(f"{header}\n{seq}\n+\n{quality}\n")
+
+    return f"Processing completed. Filtered data saved to {output_path}"
